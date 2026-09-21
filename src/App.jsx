@@ -5,8 +5,9 @@ import {
   categoryTotal,
   createDefaultRfq,
   emptyItem,
-  grandTotal,
   normalizeRfq,
+  overallPackageCost,
+  paymentSchedule,
 } from './rfqDefaults'
 
 function formatMoney(value) {
@@ -54,7 +55,8 @@ export default function App() {
     return () => clearTimeout(timer)
   }, [rfq, status])
 
-  const total = useMemo(() => grandTotal(rfq), [rfq])
+  const packageTotal = useMemo(() => overallPackageCost(rfq), [rfq])
+  const payments = useMemo(() => paymentSchedule(rfq), [rfq])
 
   const updateMeta = useCallback((field, value) => {
     setRfq((prev) => ({ ...prev, [field]: value }))
@@ -284,9 +286,47 @@ export default function App() {
         )
       })}
 
-      <section className="grand" aria-label="Grand total">
-        <span>Grand total</span>
-        <strong>{formatMoney(total)}</strong>
+      <section className="totals-block" aria-label="Package totals">
+        <div className="grand" aria-label="Overall total package cost">
+          <span>Overall total package cost</span>
+          <strong>{formatMoney(packageTotal)}</strong>
+        </div>
+
+        <div className="payment-block" aria-label="Payment schedule">
+          <h3 className="payment-title">Payment schedule</h3>
+          {payments.rows.map((row) => (
+            <label key={row.id} className="percent-row payment-row">
+              <span>{row.title}</span>
+              <div className="percent-input">
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={rfq[row.field]}
+                  onChange={(e) => updateMeta(row.field, e.target.value)}
+                  aria-label={`${row.title} percent`}
+                />
+                <span className="percent-suffix">%</span>
+              </div>
+              <span className="percent-hint amount-hint">{formatMoney(row.amount)}</span>
+            </label>
+          ))}
+          <div className="payment-footer">
+            <div className="payment-sum">
+              <span>Payment total</span>
+              <strong>{formatMoney(payments.amountSum)}</strong>
+            </div>
+            <p
+              className={
+                payments.isComplete ? 'payment-status ok' : 'payment-status warn'
+              }
+            >
+              {payments.isComplete
+                ? 'Percents total 100%'
+                : `Percents total ${payments.percentSum}% (should be 100%)`}
+            </p>
+          </div>
+        </div>
       </section>
 
       <section className="notes">
