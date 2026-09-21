@@ -20,7 +20,9 @@ Open the URL Vite prints (usually `http://localhost:5173`).
   - Labor & Supervision
 - Add / edit / remove items per category as needed (no prefilled catalog)
 - Fields: description, qty, unit, unit price, amount (auto)
-- Category subtotals + grand total
+- Category subtotals + overall total package cost
+- Payment schedule: Downpayment, Upon Project Completion, Retention
+- **Export PDF** — opens print dialog; choose “Save as PDF”
 - Header fields: title, customer, prepared by, date, notes
 - Auto-save to IndexedDB on this phone or computer
 - Installable PWA (HTTPS or localhost)

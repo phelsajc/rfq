@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { loadRfq, saveRfq } from './storage'
+import RfqPrintDocument from './RfqPrintDocument'
 import {
   calcAmount,
   categoryTotal,
@@ -115,6 +116,10 @@ export default function App() {
     setSaveState('Saving…')
   }, [])
 
+  const exportPdf = useCallback(() => {
+    window.print()
+  }, [])
+
   if (status === 'loading' || !rfq) {
     return (
       <div className="shell">
@@ -124,7 +129,8 @@ export default function App() {
   }
 
   return (
-    <div className="shell">
+    <>
+    <div className="shell no-print">
       <header className="hero">
         <p className="brand">Jayobo RFQ</p>
         <h1>{rfq.title}</h1>
@@ -133,6 +139,9 @@ export default function App() {
           Supervision. Add items only as needed. Saved on this device.
         </p>
         <div className="hero-actions">
+          <button type="button" className="btn primary" onClick={exportPdf}>
+            Export PDF
+          </button>
           <button type="button" className="btn ghost" onClick={resetRfq}>
             Reset RFQ
           </button>
@@ -143,24 +152,24 @@ export default function App() {
       </header>
 
       <section className="meta" aria-label="RFQ details">
-        <label>
-          <span>Title</span>
+        <label className="meta-wide">
+          <span>RE (Title)</span>
           <input value={rfq.title} onChange={(e) => updateMeta('title', e.target.value)} />
         </label>
         <label>
-          <span>Customer</span>
+          <span>TO (Customer)</span>
           <input
             value={rfq.customer}
             onChange={(e) => updateMeta('customer', e.target.value)}
-            placeholder="Client / project name"
+            placeholder="Client name"
           />
         </label>
         <label>
-          <span>Prepared by</span>
+          <span>Location</span>
           <input
-            value={rfq.preparedBy}
-            onChange={(e) => updateMeta('preparedBy', e.target.value)}
-            placeholder="Your name"
+            value={rfq.location}
+            onChange={(e) => updateMeta('location', e.target.value)}
+            placeholder="City / site"
           />
         </label>
         <label>
@@ -169,6 +178,41 @@ export default function App() {
             type="date"
             value={rfq.date}
             onChange={(e) => updateMeta('date', e.target.value)}
+          />
+        </label>
+        <label>
+          <span>Mobile No.</span>
+          <input
+            value={rfq.mobile}
+            onChange={(e) => updateMeta('mobile', e.target.value)}
+          />
+        </label>
+        <label>
+          <span>Prepared by</span>
+          <input
+            value={rfq.preparedBy}
+            onChange={(e) => updateMeta('preparedBy', e.target.value)}
+          />
+        </label>
+        <label>
+          <span>Company</span>
+          <input
+            value={rfq.company}
+            onChange={(e) => updateMeta('company', e.target.value)}
+          />
+        </label>
+        <label className="meta-wide">
+          <span>Address</span>
+          <input
+            value={rfq.address}
+            onChange={(e) => updateMeta('address', e.target.value)}
+          />
+        </label>
+        <label className="meta-wide">
+          <span>Intro line</span>
+          <input
+            value={rfq.intro}
+            onChange={(e) => updateMeta('intro', e.target.value)}
           />
         </label>
       </section>
@@ -329,22 +373,29 @@ export default function App() {
         </div>
       </section>
 
-      <section className="notes">
+      <section className="notes docs-panel">
         <label>
-          <span>Notes</span>
+          <span>Notes / VAT line (page 1)</span>
           <textarea
-            rows={3}
+            rows={2}
             value={rfq.notes}
             onChange={(e) => updateMeta('notes', e.target.value)}
           />
         </label>
+        <p className="muted">
+          PDF page 2 follows the sample quotation (warranty, agreement, conforme,
+          terms). Payment % on page 2 uses your payment schedule values.
+        </p>
       </section>
 
       <footer className="foot">
         <p className="muted">
-          Offline-capable PWA. Quotes are stored only on this device.
+          Offline-capable PWA. Quotes are stored only on this device. Use Export PDF → Save as PDF.
         </p>
       </footer>
     </div>
+
+    <RfqPrintDocument rfq={rfq} packageTotal={packageTotal} payments={payments} />
+    </>
   )
 }

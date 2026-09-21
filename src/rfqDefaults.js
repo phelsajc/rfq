@@ -9,10 +9,38 @@ export function calcAmount(qty, unitPrice) {
 }
 
 export const CATEGORY_DEFS = [
-  { id: 'materials', title: 'MATERIAL COST' },
-  { id: 'roughing', title: 'ROUGHING-IN & CONSUMABLE MAT' },
-  { id: 'labor', title: 'LABOR & SUPERVISION' },
+  { id: 'materials', title: 'MATERIAL COST', roman: 'I' },
+  { id: 'roughing', title: 'ROUGHING-IN & CONSUMABLE MAT', roman: 'II' },
+  { id: 'labor', title: 'LABOR & SUPERVISION', roman: 'III' },
 ]
+
+export const DEFAULT_WARRANTY = `Components Warranty and Performance:
+2. GridTie/Hybrid Inverter - 5 Years Replacement Warranty
+3. Lithium Battery - 5 Year Warranty replacement on parts
+4. Workmanship and Safety Devices - 1 year warranty
+Components delivered and installed with the following conditions.
+- Provided that the Equipments / Components is not tampered or opened by any unauthorized person.
+- Provided that the Equipments / Components is not being abused or misused.
+- (Acts of God (e.g. Lightning, Storms, etc. is not covered by the Warranty)
+Components delivered and installed with the following conditions.
+- Unlimited Free Service Visits for Troubleshooting and Checkup
+- 24 to 48 Hours response time for any reported defects/problems.`
+
+export const DEFAULT_AGREEMENT = `Agreement
+1. Repair works
+2. Troubleshoots at site
+3. Client Orientation
+4. Re-arrangement of system in any other location, etc.
+· Payment Mode: 50% Downpayment, 45% Upon Completion and Commissioning
+· 5% Retention after Commissioning and Energization
+· Start of the Project: 3 to 5 Working Days depend on the size after receipt of Signed Conforme
+· Price Validity: 15 days.
+· Vat Excluded
+· Project Duration: 7-14 Days`
+
+export const DEFAULT_TERMS = `Terms & Conditions:
+1. Solar Modules - 10 Years replacement, Up to 12 years : 90% power output 2. Up to 25 years : 85% power output.
+All equipment in above proposed solar power systems have longer service lives than guaranteed if operated under normal operating conditions. Nevertheless, the Service Level Agreement (SLA) may be signed between the Client & I that will cover all activities as per its requirements, for example:`
 
 export function emptyItem() {
   return {
@@ -29,6 +57,7 @@ function emptyCategories() {
   return CATEGORY_DEFS.map((cat) => ({
     id: cat.id,
     title: cat.title,
+    roman: cat.roman,
     items: [],
   }))
 }
@@ -48,19 +77,27 @@ function readPercent(value) {
   return Number(value) || 0
 }
 
-/** Fresh RFQ: three categories, no prefilled items — add as needed. */
+/** Fresh RFQ shaped like the sample quotation PDF. */
 export function createDefaultRfq() {
   return {
     id: createId(),
-    title: '8kW Hybrid System — Jayobo',
+    title: 'SUPPLY & INSTALLATION OF 8KW HYBRID SYSTEM',
     customer: '',
-    preparedBy: '',
+    location: '',
+    mobile: '09071113311',
+    preparedBy: 'Jan Michael Guanzon',
+    company: 'Jan Solar Energy Shop',
+    address: '1st Road Puentebella Subd. Bacolod City 6100',
     date: new Date().toISOString().slice(0, 10),
-    notes:
-      'Prices in PHP. Add items under each category as needed. One row can hold a multi-line package list. Amount = Qty × Unit Price. Overall Total Package Cost = sum of all categories. Payment amounts = Overall × (payment % ÷ 100).',
-    downpaymentPercent: 0,
-    completionPercent: 0,
-    retentionPercent: 0,
+    intro:
+      'We are pleased to SUPPLY & INSTALLATION PV SOLAR OF 8KW HYBRID SYSTEM',
+    notes: 'VAT Excluded',
+    warranty: DEFAULT_WARRANTY,
+    agreement: DEFAULT_AGREEMENT,
+    terms: DEFAULT_TERMS,
+    downpaymentPercent: 50,
+    completionPercent: 45,
+    retentionPercent: 5,
     categories: emptyCategories(),
     updatedAt: new Date().toISOString(),
   }
@@ -70,36 +107,53 @@ export function createDefaultRfq() {
 export function normalizeRfq(data) {
   if (!data) return createDefaultRfq()
 
+  const defaults = createDefaultRfq()
   const { packagePercent: _dropPackage, ...withoutPackage } = data
 
   const paymentFields = {
-    downpaymentPercent: readPercent(data.downpaymentPercent),
-    completionPercent: readPercent(data.completionPercent),
-    retentionPercent: readPercent(data.retentionPercent),
+    downpaymentPercent: readPercent(
+      data.downpaymentPercent ?? defaults.downpaymentPercent,
+    ),
+    completionPercent: readPercent(
+      data.completionPercent ?? defaults.completionPercent,
+    ),
+    retentionPercent: readPercent(
+      data.retentionPercent ?? defaults.retentionPercent,
+    ),
   }
 
   if (Array.isArray(data.categories) && data.categories.length) {
     const byId = Object.fromEntries(data.categories.map((c) => [c.id, c]))
     return {
+      ...defaults,
       ...withoutPackage,
       ...paymentFields,
+      location: data.location ?? '',
+      mobile: data.mobile ?? defaults.mobile,
+      company: data.company ?? defaults.company,
+      address: data.address ?? defaults.address,
+      intro: data.intro ?? defaults.intro,
+      warranty: data.warranty ?? defaults.warranty,
+      agreement: data.agreement ?? defaults.agreement,
+      terms: data.terms ?? defaults.terms,
       categories: CATEGORY_DEFS.map((def) => {
         const existing = byId[def.id]
         return {
           id: def.id,
           title: def.title,
+          roman: def.roman,
           items: Array.isArray(existing?.items) ? existing.items : [],
         }
       }),
     }
   }
 
-  // Old single-list format → put under Material Cost
   if (Array.isArray(data.items)) {
     const categories = emptyCategories()
     categories[0].items = data.items
     const { items: _drop, packagePercent: _dropPct, ...rest } = data
     return {
+      ...defaults,
       ...rest,
       ...paymentFields,
       categories,
@@ -145,4 +199,12 @@ export function paymentSchedule(rfq) {
     amountSum: Math.round(amountSum * 100) / 100,
     isComplete: Math.abs(percentSum - 100) < 0.001,
   }
+}
+
+/** Format money like the sample (1,234.00 without currency symbol in table cells). */
+export function formatPhp(value) {
+  return new Intl.NumberFormat('en-PH', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(value) || 0)
 }
