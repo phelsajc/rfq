@@ -1,7 +1,7 @@
 import { formatPhp } from './rfqDefaults'
 
 function formatMoneyPhp(value) {
-  return `Php ${formatPhp(value)}`
+  return `${formatPhp(value)} Php`
 }
 
 function formatDate(iso) {
@@ -51,6 +51,11 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
     <article className="print-doc" aria-hidden="true">
       <div className="print-page print-page-1">
         <header className="print-letterhead">
+          <img
+            className="print-brand-header"
+            src={`${import.meta.env.BASE_URL}header.JPG`}
+            alt="Jan Solar Energy Shop"
+          />
           <dl className="print-letter-meta">
             <div>
               <dt>TO:</dt>

@@ -53,14 +53,20 @@ export function emptyItem() {
   }
 }
 
-function seedItem(description) {
+function seedItem({ description, qty = 1, unit = 'pc', unitPrice = 0 }) {
+  const amount = calcAmount(qty, unitPrice)
   return {
     ...emptyItem(),
     description,
+    qty,
+    unit,
+    unitPrice,
+    amount,
   }
 }
 
 const DEFAULT_ROUGHING_DESCRIPTION = [
+  'Roughing-In & Consumable Materials',
   '- Roof Mount railing set',
   '- DC and AC Breakers and Isolators',
   '- Surge Protection',
@@ -72,17 +78,49 @@ const DEFAULT_ROUGHING_DESCRIPTION = [
   '- Supports and Brackets',
 ].join('\n')
 
+const DEFAULT_LABOR_DESCRIPTION = [
+  '- Engineering Cost and Supervision',
+  '- Transportation',
+  '- Net Metering',
+].join('\n')
+
+/** Seeded like sample PDF (total 630,800.00). */
 const DEFAULT_CATEGORY_ITEMS = {
   materials: [
-    '650w Solar Panel',
-    '8kw Hybrid Inverter',
-    '314AH Lithium (Life04)',
+    {
+      description: '650W AIKO ABC TECHNOLOGY Mono-Facial Panels',
+      qty: 14,
+      unit: 'pcs.',
+      unitPrice: 24700,
+    },
+    {
+      description: '8KW DEYE HYBRID INVERTER',
+      qty: 1,
+      unit: 'unit',
+      unitPrice: 0,
+    },
+    {
+      description: '314AH Lithium (LifeO4)',
+      qty: 2,
+      unit: 'Unit',
+      unitPrice: 125000,
+    },
   ],
-  roughing: [DEFAULT_ROUGHING_DESCRIPTION],
+  roughing: [
+    {
+      description: DEFAULT_ROUGHING_DESCRIPTION,
+      qty: 1,
+      unit: 'lot',
+      unitPrice: 0,
+    },
+  ],
   labor: [
-    'Engineering Cost and Supervision',
-    'Transportation',
-    'Net Metering',
+    {
+      description: DEFAULT_LABOR_DESCRIPTION,
+      qty: 1,
+      unit: 'lot',
+      unitPrice: 35000,
+    },
   ],
 }
 
@@ -124,11 +162,11 @@ export function createDefaultRfq() {
   return {
     id: createId(),
     title: 'SUPPLY & INSTALLATION OF 8KW HYBRID SYSTEM',
-    customer: '',
-    location: '',
+    customer: 'Rain Jayobo',
+    location: 'Bacolod City',
     preparedBy: 'Jan Michael Guanzon',
     company: 'Jan Solar Energy Shop',
-    date: new Date().toISOString().slice(0, 10),
+    date: '2026-07-06',
     intro:
       'We are pleased to SUPPLY & INSTALLATION PV SOLAR OF 8KW HYBRID SYSTEM',
     notes: 'VAT Excluded',
