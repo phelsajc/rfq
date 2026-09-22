@@ -1,6 +1,6 @@
 # RFQ — 8kW Hybrid Jayobo
 
-React PWA for building and editing a Request for Quotation. Data is saved on the device with IndexedDB (no server required).
+React PWA for building and editing a Request for Quotation. Data is saved on the device with IndexedDB.
 
 ## Run
 
@@ -14,18 +14,10 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 
 ## Features
 
-- Three quotation categories (same as PDF layout):
-  - Material Cost
-  - Roughing-In & Consumable Mat
-  - Labor & Supervision
-- Add / edit / remove items per category as needed (no prefilled catalog)
-- Fields: description, qty, unit, unit price, amount (auto)
-- Category subtotals + overall total package cost
-- Payment schedule: Downpayment, Upon Project Completion, Retention
-- **Export PDF** — opens print dialog; choose “Save as PDF”
-- Header fields: title, customer, prepared by, date, notes
-- Auto-save to IndexedDB on this phone or computer
-- Installable PWA (HTTPS or localhost)
+- Three quotation categories (editor); PDF print merges Material+Roughing as **I**, Labor as **II**
+- Editable line items; overall total; payment schedule
+- **Export PDF** — print dialog → Save as PDF
+- Auto-save to IndexedDB; installable PWA
 
 ## Build
 

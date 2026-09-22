@@ -181,13 +181,6 @@ export default function App() {
           />
         </label>
         <label>
-          <span>Mobile No.</span>
-          <input
-            value={rfq.mobile}
-            onChange={(e) => updateMeta('mobile', e.target.value)}
-          />
-        </label>
-        <label>
           <span>Prepared by</span>
           <input
             value={rfq.preparedBy}
@@ -199,13 +192,6 @@ export default function App() {
           <input
             value={rfq.company}
             onChange={(e) => updateMeta('company', e.target.value)}
-          />
-        </label>
-        <label className="meta-wide">
-          <span>Address</span>
-          <input
-            value={rfq.address}
-            onChange={(e) => updateMeta('address', e.target.value)}
           />
         </label>
         <label className="meta-wide">

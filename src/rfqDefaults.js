@@ -53,12 +53,54 @@ export function emptyItem() {
   }
 }
 
+function seedItem(description) {
+  return {
+    ...emptyItem(),
+    description,
+  }
+}
+
+const DEFAULT_ROUGHING_DESCRIPTION = [
+  '- Roof Mount railing set',
+  '- DC and AC Breakers and Isolators',
+  '- Surge Protection',
+  '- DC Wiring and M4 Connectors',
+  '- Conduit Piping',
+  '- Pull Box',
+  '- Utility Box',
+  '- Wire harnessing',
+  '- Supports and Brackets',
+].join('\n')
+
+const DEFAULT_CATEGORY_ITEMS = {
+  materials: [
+    '650w Solar Panel',
+    '8kw Hybrid Inverter',
+    '314AH Lithium (Life04)',
+  ],
+  roughing: [DEFAULT_ROUGHING_DESCRIPTION],
+  labor: [
+    'Engineering Cost and Supervision',
+    'Transportation',
+    'Net Metering',
+  ],
+}
+
 function emptyCategories() {
   return CATEGORY_DEFS.map((cat) => ({
     id: cat.id,
     title: cat.title,
     roman: cat.roman,
     items: [],
+  }))
+}
+
+function seededCategories() {
+  return CATEGORY_DEFS.map((cat) => ({
+    id: cat.id,
+    title: cat.title,
+    roman: cat.roman,
+    items: (DEFAULT_CATEGORY_ITEMS[cat.id] || []).map(seedItem),
   }))
 }
 
@@ -84,10 +126,8 @@ export function createDefaultRfq() {
     title: 'SUPPLY & INSTALLATION OF 8KW HYBRID SYSTEM',
     customer: '',
     location: '',
-    mobile: '09071113311',
     preparedBy: 'Jan Michael Guanzon',
     company: 'Jan Solar Energy Shop',
-    address: '1st Road Puentebella Subd. Bacolod City 6100',
     date: new Date().toISOString().slice(0, 10),
     intro:
       'We are pleased to SUPPLY & INSTALLATION PV SOLAR OF 8KW HYBRID SYSTEM',
@@ -98,7 +138,7 @@ export function createDefaultRfq() {
     downpaymentPercent: 50,
     completionPercent: 45,
     retentionPercent: 5,
-    categories: emptyCategories(),
+    categories: seededCategories(),
     updatedAt: new Date().toISOString(),
   }
 }
@@ -129,9 +169,7 @@ export function normalizeRfq(data) {
       ...withoutPackage,
       ...paymentFields,
       location: data.location ?? '',
-      mobile: data.mobile ?? defaults.mobile,
       company: data.company ?? defaults.company,
-      address: data.address ?? defaults.address,
       intro: data.intro ?? defaults.intro,
       warranty: data.warranty ?? defaults.warranty,
       agreement: data.agreement ?? defaults.agreement,

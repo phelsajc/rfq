@@ -567,11 +567,6 @@ body {
     margin-bottom: 10px;
   }
 
-  .print-mobile {
-    margin: 0 0 10px;
-    font-size: 10pt;
-  }
-
   .print-letter-meta {
     margin: 0;
   }
@@ -714,8 +709,7 @@ body {
     font-weight: 600;
   }
 
-  .print-vat,
-  .print-address {
+  .print-vat {
     margin: 6px 0;
   }
 

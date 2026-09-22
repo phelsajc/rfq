@@ -51,7 +51,6 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
     <article className="print-doc" aria-hidden="true">
       <div className="print-page print-page-1">
         <header className="print-letterhead">
-          <p className="print-mobile">Mobile No. {rfq.mobile || '—'}</p>
           <dl className="print-letter-meta">
             <div>
               <dt>TO:</dt>
@@ -121,7 +120,6 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
         </section>
 
         <p className="print-vat">{rfq.notes || 'VAT Excluded'}</p>
-        <p className="print-address">{rfq.address}</p>
 
         <div className="print-pay-summary">
           <p>Completion of Installation</p>
