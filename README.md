@@ -1,4 +1,4 @@
-# RFQ — 8kW Hybrid Jayobo
+# RFQ
 
 React PWA for building and editing a Request for Quotation. Data is saved on the device with IndexedDB.
 

@@ -9,6 +9,7 @@ import {
   normalizeRfq,
   overallPackageCost,
   paymentSchedule,
+  UNIT_OPTIONS,
 } from './rfqDefaults'
 
 function formatMoney(value) {
@@ -17,6 +18,17 @@ function formatMoney(value) {
     currency: 'PHP',
     minimumFractionDigits: 2,
   }).format(Number(value) || 0)
+}
+
+/** Safe suggested PDF name from customer (print Save as PDF uses document.title). */
+function pdfFilenameFromCustomer(customer) {
+  const cleaned = String(customer ?? '')
+    .replace(/[<>:"/\\|?*\u0000-\u001f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[. ]+$/g, '')
+    .slice(0, 120)
+  return cleaned || 'RFQ'
 }
 
 export default function App() {
@@ -117,8 +129,20 @@ export default function App() {
   }, [])
 
   const exportPdf = useCallback(() => {
+    const previousTitle = document.title
+    document.title = pdfFilenameFromCustomer(rfq?.customer)
+    let restored = false
+    const restoreTitle = () => {
+      if (restored) return
+      restored = true
+      document.title = previousTitle
+      window.removeEventListener('afterprint', restoreTitle)
+    }
+    window.addEventListener('afterprint', restoreTitle)
     window.print()
-  }, [])
+    // Fallback if afterprint never fires (some browsers)
+    setTimeout(restoreTitle, 1000)
+  }, [rfq?.customer])
 
   if (status === 'loading' || !rfq) {
     return (
@@ -132,7 +156,7 @@ export default function App() {
     <>
     <div className="shell no-print">
       <header className="hero">
-        <p className="brand">Jayobo RFQ</p>
+        <p className="brand">RFQ</p>
         <h1>{rfq.title}</h1>
         <p className="lede">
           Three quotation sections — Material Cost, Roughing-In & Consumable Mat, and Labor &
@@ -264,14 +288,21 @@ export default function App() {
                           />
                         </td>
                         <td>
-                          <input
+                          <select
                             className="cell"
-                            value={row.unit}
+                            value={
+                              UNIT_OPTIONS.includes(row.unit) ? row.unit : 'pc'
+                            }
                             onChange={(e) =>
                               updateItem(cat.id, row.id, 'unit', e.target.value)
                             }
-                            placeholder="pc"
-                          />
+                          >
+                            {UNIT_OPTIONS.map((u) => (
+                              <option key={u} value={u}>
+                                {u}
+                              </option>
+                            ))}
+                          </select>
                         </td>
                         <td>
                           <input

@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        name: 'RFQ — 8kW Hybrid Jayobo',
-        short_name: 'RFQ Jayobo',
-        description: 'Request for Quotation for 8kW Hybrid Jayobo solar system',
+        name: 'RFQ',
+        short_name: 'RFQ',
+        description: 'Request for Quotation',
         theme_color: '#0f3d2e',
         background_color: '#f4f7f5',
         display: 'standalone',

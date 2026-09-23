@@ -42,6 +42,8 @@ export const DEFAULT_TERMS = `Terms & Conditions:
 1. Solar Modules - 10 Years replacement, Up to 12 years : 90% power output 2. Up to 25 years : 85% power output.
 All equipment in above proposed solar power systems have longer service lives than guaranteed if operated under normal operating conditions. Nevertheless, the Service Level Agreement (SLA) may be signed between the Client & I that will cover all activities as per its requirements, for example:`
 
+export const UNIT_OPTIONS = ['pc', 'unit', 'lot']
+
 export function emptyItem() {
   return {
     id: createId(),
@@ -90,7 +92,7 @@ const DEFAULT_CATEGORY_ITEMS = {
     {
       description: '650W AIKO ABC TECHNOLOGY Mono-Facial Panels',
       qty: 14,
-      unit: 'pcs.',
+      unit: 'pc',
       unitPrice: 24700,
     },
     {
@@ -102,7 +104,7 @@ const DEFAULT_CATEGORY_ITEMS = {
     {
       description: '314AH Lithium (LifeO4)',
       qty: 2,
-      unit: 'Unit',
+      unit: 'unit',
       unitPrice: 125000,
     },
   ],
