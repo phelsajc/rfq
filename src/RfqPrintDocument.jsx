@@ -139,7 +139,7 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
           <li>Workmanship and Safety Devices - 1 year warrant</li>
         </ol>
 
-        <p className="print-p">
+        <p className="print-p print-p-bold">
           Components delivered and installed with the following conditions.
         </p>
         <ul className="print-ul">
@@ -157,7 +157,7 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
           </li>
         </ul>
 
-        <p className="print-p">
+        <p className="print-p print-p-bold">
           Components delivered and installed with the following conditions.
         </p>
         <ul className="print-ul">
@@ -166,6 +166,13 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
         </ul>
 
         <h2 className="print-h2">Agreement</h2>
+        <p className="print-p">
+          All equipment in above proposed solar power systems have longer service
+          lives than guaranteed if operated under normal operating conditions.
+          Nevertheless, the Service Level Agreement (SLA) may be signed between
+          the Client &amp; I that will cover all activities as per its
+          requirements, for example:
+        </p>
         <ol className="print-ol">
           <li>Repair works</li>
           <li>Troubleshoots at site</li>
@@ -173,6 +180,7 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
           <li>Re-arrangement of system in any other location, etc.</li>
         </ol>
 
+        <h2 className="print-h2">Terms &amp; Conditions:</h2>
         <ul className="print-dots">
           <li>
             Payment Mode: {down?.percent ?? 50}% Downpayment,{' '}
@@ -202,15 +210,6 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
           <div className="print-sign-line" />
           <p>Date: _____________________</p>
         </section>
-
-        <h2 className="print-h2">Terms &amp; Conditions:</h2>
-        <p className="print-p">
-          All equipment in above proposed solar power systems have longer service
-          lives than guaranteed if operated under normal operating conditions.
-          Nevertheless, the Service Level Agreement (SLA) may be signed between
-          the Client &amp; I that will cover all activities as per its
-          requirements, for example:
-        </p>
       </div>
     </article>
   )

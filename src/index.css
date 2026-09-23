@@ -545,6 +545,10 @@ body {
     margin: 4px 0;
   }
 
+  .print-p-bold {
+    font-weight: 700;
+  }
+
   .print-ol,
   .print-ul,
   .print-dots {

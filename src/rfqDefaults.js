@@ -28,19 +28,19 @@ Components delivered and installed with the following conditions.
 - 24 to 48 Hours response time for any reported defects/problems.`
 
 export const DEFAULT_AGREEMENT = `Agreement
+All equipment in above proposed solar power systems have longer service lives than guaranteed if operated under normal operating conditions. Nevertheless, the Service Level Agreement (SLA) may be signed between the Client & I that will cover all activities as per its requirements, for example:
 1. Repair works
 2. Troubleshoots at site
 3. Client Orientation
-4. Re-arrangement of system in any other location, etc.
+4. Re-arrangement of system in any other location, etc.`
+
+export const DEFAULT_TERMS = `Terms & Conditions:
 · Payment Mode: 50% Downpayment, 45% Upon Completion and Commissioning
 · 5% Retention after Commisioning and Energization
 · Start of the Project: 3 to 5 Working Days depend on the size after receipt of Signed Conforme
 · Price Validity: 15 days.
 · Vat Excluded
 · Project Duration: 7-14 Days`
-
-export const DEFAULT_TERMS = `Terms & Conditions:
-All equipment in above proposed solar power systems have longer service lives than guaranteed if operated under normal operating conditions. Nevertheless, the Service Level Agreement (SLA) may be signed between the Client & I that will cover all activities as per its requirements, for example:`
 
 export const UNIT_OPTIONS = ['pc', 'unit', 'lot']
 
