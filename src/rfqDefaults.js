@@ -171,7 +171,7 @@ export function createDefaultRfq() {
     date: '2026-07-06',
     intro:
       'We are pleased to SUPPLY & INSTALLATION PV SOLAR OF 8KW HYBRID SYSTEM',
-    notes: '1st Road Puentebella Subd. Bacolod City 6100',
+    notes: 'VAT Excluded',
     warranty: DEFAULT_WARRANTY,
     agreement: DEFAULT_AGREEMENT,
     terms: DEFAULT_TERMS,
@@ -205,7 +205,8 @@ export function normalizeRfq(data) {
   if (Array.isArray(data.categories) && data.categories.length) {
     const byId = Object.fromEntries(data.categories.map((c) => [c.id, c]))
     const notes =
-      !data.notes || data.notes === 'VAT Excluded'
+      !data.notes ||
+      data.notes === '1st Road Puentebella Subd. Bacolod City 6100'
         ? defaults.notes
         : data.notes
     return {

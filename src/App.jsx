@@ -403,17 +403,14 @@ export default function App() {
 
       <section className="notes docs-panel">
         <label>
-          <span>Address line (page 1)</span>
+          <span>Notes (page 1)</span>
           <textarea
             rows={2}
             value={rfq.notes}
             onChange={(e) => updateMeta('notes', e.target.value)}
           />
         </label>
-        <p className="muted">
-          PDF page 2 follows the sample quotation (warranty, agreement, conforme,
-          terms). Payment % on page 2 uses your payment schedule values.
-        </p>
+        <p className="muted">VAT Excluded</p>
       </section>
 
       <footer className="foot">

@@ -756,19 +756,18 @@ body {
   .print-sign-name {
     margin-top: 22px !important;
     font-weight: 700;
-    text-decoration: underline;
   }
 
   .print-sign-co {
-    font-weight: 600;
+    font-weight: 400;
   }
 
   .print-conforme {
-    margin: 14px 0 12px;
+    margin: 28px 0 24px;
   }
 
   .print-conforme-label {
-    margin: 0 0 22px;
+    margin: 0 0 36px;
     font-weight: 700;
   }
 
@@ -779,7 +778,7 @@ body {
   .print-sign-line {
     width: 220px;
     border-bottom: 1px solid #111;
-    margin-bottom: 6px;
+    margin-bottom: 18px;
   }
 }
 
