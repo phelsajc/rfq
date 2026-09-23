@@ -756,6 +756,8 @@ body {
   .print-sign-name {
     margin-top: 22px !important;
     font-weight: 700;
+    text-decoration: none;
+    border-bottom: none;
   }
 
   .print-sign-co {
@@ -763,22 +765,36 @@ body {
   }
 
   .print-conforme {
-    margin: 28px 0 24px;
+    margin: 28px 0 32px;
   }
 
-  .print-conforme-label {
-    margin: 0 0 36px;
+  .print-conforme .print-conforme-label {
+    margin: 0;
+    padding-bottom: 72px;
     font-weight: 700;
   }
 
-  .print-conforme p {
+  .print-conforme-date {
     margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35em;
   }
 
   .print-sign-line {
-    width: 220px;
+    height: 0;
+    width: 70%;
+    max-width: 320px;
     border-bottom: 1px solid #111;
-    margin-bottom: 18px;
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .print-date-line {
+    display: inline-block;
+    width: 150px;
+    border-bottom: 1px solid #111;
+    vertical-align: baseline;
   }
 }
 

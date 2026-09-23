@@ -208,7 +208,10 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
         <section className="print-conforme">
           <p className="print-conforme-label">Conforme</p>
           <div className="print-sign-line" />
-          <p>Date: _____________________</p>
+          <p className="print-conforme-date">
+            <strong>Date:</strong>
+            <span className="print-date-line" />
+          </p>
         </section>
       </div>
     </article>

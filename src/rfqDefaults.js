@@ -163,14 +163,14 @@ function readPercent(value) {
 export function createDefaultRfq() {
   return {
     id: createId(),
-    title: 'SUPPLY & INSTALLATION OF 8KW HYBRID SYSTEM',
+    title: 'SUPPLY & INSTALLATION OF HYBRID SYSTEM',
     customer: 'Rain Jayobo',
     location: 'Bacolod City',
     preparedBy: 'Jan Michael Guanzon',
     company: 'Jan Solar Energy Shop',
     date: '2026-07-06',
     intro:
-      'We are pleased to SUPPLY & INSTALLATION PV SOLAR OF 8KW HYBRID SYSTEM',
+      'We are pleased to SUPPLY & INSTALLATION PV SOLAR OF HYBRID SYSTEM',
     notes: 'VAT Excluded',
     warranty: DEFAULT_WARRANTY,
     agreement: DEFAULT_AGREEMENT,
