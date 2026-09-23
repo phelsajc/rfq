@@ -403,7 +403,7 @@ export default function App() {
 
       <section className="notes docs-panel">
         <label>
-          <span>Notes / VAT line (page 1)</span>
+          <span>Address line (page 1)</span>
           <textarea
             rows={2}
             value={rfq.notes}

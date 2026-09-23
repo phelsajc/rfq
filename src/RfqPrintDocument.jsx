@@ -124,21 +124,19 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
           ) : null}
         </section>
 
-        <p className="print-vat">{rfq.notes || 'VAT Excluded'}</p>
-
-        <div className="print-pay-summary">
-          <p>Completion of Installation</p>
-          <p>Retention after Net Metering</p>
-          <p>Downpayment</p>
-        </div>
+        {rfq.notes ? <p className="print-vat">{rfq.notes}</p> : null}
       </div>
 
       <div className="print-page print-page-2">
         <h2 className="print-h2">Components Warranty and Performance:</h2>
-        <ol className="print-ol" start={2}>
+        <ol className="print-ol">
+          <li>
+            Solar Modules - 10 Years replacement, Up to 12 years : 90% power
+            output 2. Up to 25 years : 85% power output.
+          </li>
           <li>GridTie/Hybrid Inverter - 5 Years Replacement Warranty</li>
-          <li>Lithium Battery - 5 Year Warranty replacement on parts</li>
-          <li>Workmanship and Safety Devices - 1 year warranty</li>
+          <li>Lithuim Battery - 5 Year Warranty replacement on parts</li>
+          <li>Workmanship and Safety Devices - 1 year warrant</li>
         </ol>
 
         <p className="print-p">
@@ -181,7 +179,7 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
             {completion?.percent ?? 45}% Upon Completion and Commissioning
           </li>
           <li>
-            {retention?.percent ?? 5}% Retention after Commissioning and
+            {retention?.percent ?? 5}% Retention after Commisioning and
             Energization
           </li>
           <li>
@@ -206,10 +204,6 @@ export default function RfqPrintDocument({ rfq, packageTotal, payments }) {
         </section>
 
         <h2 className="print-h2">Terms &amp; Conditions:</h2>
-        <p className="print-p">
-          1. Solar Modules - 10 Years replacement, Up to 12 years : 90% power
-          output 2. Up to 25 years : 85% power output.
-        </p>
         <p className="print-p">
           All equipment in above proposed solar power systems have longer service
           lives than guaranteed if operated under normal operating conditions.

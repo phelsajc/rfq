@@ -532,26 +532,40 @@ body {
   }
 
   .print-h2 {
-    margin: 12px 0 6px;
+    margin: 10px 0 4px;
     font-size: 11pt;
     font-weight: 700;
   }
 
+  .print-page-2 .print-h2:first-child {
+    margin-top: 0;
+  }
+
   .print-p {
-    margin: 6px 0;
+    margin: 4px 0;
   }
 
   .print-ol,
   .print-ul,
   .print-dots {
-    margin: 4px 0 10px;
+    margin: 2px 0 8px;
     padding-left: 1.35rem;
   }
 
   .print-ol li,
   .print-ul li,
   .print-dots li {
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+  }
+
+  /* Sample PDF uses hyphen bullets for condition / service lists */
+  .print-ul {
+    list-style: none;
+    padding-left: 0.85rem;
+  }
+
+  .print-ul li::before {
+    content: '- ';
   }
 
   .print-dots {
@@ -723,28 +737,20 @@ body {
     margin: 6px 0;
   }
 
-  .print-pay-summary {
-    margin-top: 10px;
-  }
-
-  .print-pay-summary p {
-    margin: 2px 0;
-  }
-
   .print-block {
     margin-bottom: 12px;
   }
 
   .print-sign {
-    margin: 18px 0 22px;
+    margin: 14px 0 16px;
   }
 
   .print-sign p {
-    margin: 0 0 4px;
+    margin: 0 0 2px;
   }
 
   .print-sign-name {
-    margin-top: 28px !important;
+    margin-top: 22px !important;
     font-weight: 700;
     text-decoration: underline;
   }
@@ -754,18 +760,22 @@ body {
   }
 
   .print-conforme {
-    margin: 20px 0 16px;
+    margin: 14px 0 12px;
   }
 
   .print-conforme-label {
-    margin: 0 0 28px;
+    margin: 0 0 22px;
     font-weight: 700;
+  }
+
+  .print-conforme p {
+    margin: 0;
   }
 
   .print-sign-line {
     width: 220px;
     border-bottom: 1px solid #111;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 }
 

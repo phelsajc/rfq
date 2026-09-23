@@ -15,9 +15,10 @@ export const CATEGORY_DEFS = [
 ]
 
 export const DEFAULT_WARRANTY = `Components Warranty and Performance:
+1. Solar Modules - 10 Years replacement, Up to 12 years : 90% power output 2. Up to 25 years : 85% power output.
 2. GridTie/Hybrid Inverter - 5 Years Replacement Warranty
-3. Lithium Battery - 5 Year Warranty replacement on parts
-4. Workmanship and Safety Devices - 1 year warranty
+3. Lithuim Battery - 5 Year Warranty replacement on parts
+4. Workmanship and Safety Devices - 1 year warrant
 Components delivered and installed with the following conditions.
 - Provided that the Equipments / Components is not tampered or opened by any unauthorized person.
 - Provided that the Equipments / Components is not being abused or misused.
@@ -32,14 +33,13 @@ export const DEFAULT_AGREEMENT = `Agreement
 3. Client Orientation
 4. Re-arrangement of system in any other location, etc.
 · Payment Mode: 50% Downpayment, 45% Upon Completion and Commissioning
-· 5% Retention after Commissioning and Energization
+· 5% Retention after Commisioning and Energization
 · Start of the Project: 3 to 5 Working Days depend on the size after receipt of Signed Conforme
 · Price Validity: 15 days.
 · Vat Excluded
 · Project Duration: 7-14 Days`
 
 export const DEFAULT_TERMS = `Terms & Conditions:
-1. Solar Modules - 10 Years replacement, Up to 12 years : 90% power output 2. Up to 25 years : 85% power output.
 All equipment in above proposed solar power systems have longer service lives than guaranteed if operated under normal operating conditions. Nevertheless, the Service Level Agreement (SLA) may be signed between the Client & I that will cover all activities as per its requirements, for example:`
 
 export const UNIT_OPTIONS = ['pc', 'unit', 'lot']
@@ -171,7 +171,7 @@ export function createDefaultRfq() {
     date: '2026-07-06',
     intro:
       'We are pleased to SUPPLY & INSTALLATION PV SOLAR OF 8KW HYBRID SYSTEM',
-    notes: 'VAT Excluded',
+    notes: '1st Road Puentebella Subd. Bacolod City 6100',
     warranty: DEFAULT_WARRANTY,
     agreement: DEFAULT_AGREEMENT,
     terms: DEFAULT_TERMS,
@@ -204,10 +204,15 @@ export function normalizeRfq(data) {
 
   if (Array.isArray(data.categories) && data.categories.length) {
     const byId = Object.fromEntries(data.categories.map((c) => [c.id, c]))
+    const notes =
+      !data.notes || data.notes === 'VAT Excluded'
+        ? defaults.notes
+        : data.notes
     return {
       ...defaults,
       ...withoutPackage,
       ...paymentFields,
+      notes,
       location: data.location ?? '',
       company: data.company ?? defaults.company,
       intro: data.intro ?? defaults.intro,
