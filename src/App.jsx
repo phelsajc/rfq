@@ -316,7 +316,18 @@ export default function App() {
                             }
                           />
                         </td>
-                        <td className="amount">{formatMoney(row.amount)}</td>
+                        <td>
+                          <input
+                            className="cell num"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value={row.amount}
+                            onChange={(e) =>
+                              updateItem(cat.id, row.id, 'amount', e.target.value)
+                            }
+                          />
+                        </td>
                         <td>
                           <button
                             type="button"
